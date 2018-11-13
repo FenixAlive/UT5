@@ -1,12 +1,12 @@
 clear
 format longG
-k = 6;
+k = 49;
 a = 0;
 b = 11/10;
 h = (b-a)/(k);
 %función a integrar
 f = @(x)(x.^3-11.*x.^2./6+x+11/6);
-
+%f = @(x)(4-x.^2);
 %hay tres formas de calcular la integral, elegir c = ?
 %1-rectangulos interiores
 %2-rectangulos exteriores
@@ -26,7 +26,7 @@ elseif c == 3
     %for i = 1:k
     %    x(i) = (xt(i+1)-xt(i))/2;
     %end
-    x = a+h*(1:k)+h/2;
+    x = a+h*(1:k)-h/2;
 end
     
 %formula de integración

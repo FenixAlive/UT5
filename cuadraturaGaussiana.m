@@ -4,7 +4,7 @@ f = @(x)(exp(-x.^2));
 a = -2;
 b = 2;
 %cambiar n a necesidad de x y w
-n = 5;
+n = 4;
 %el programa elige x y w de acuerdo a n
 if n == 2
     t = [sqrt(3)/3 -sqrt(3)/3]
@@ -28,6 +28,7 @@ elseif n == 5
     w = [128/225 w w w4 w4];
 end
 %formula
+    ss = sum(w.*(f(((b-a)/2).*t+(b+a)/2)))*(b-a)/2
 s = 0;
 for k = 1:n
     s = s+w(k)*f(((b-a)/2)*t(k)+(b+a)/2);
