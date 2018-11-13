@@ -7,12 +7,15 @@ t0 = 0;
 y0 = 1;
 f = @(t,y)(y);
 hl = a:h:b; %espacio lineal
-%yn = y(t0+1*hl(1)) + hl(1)*f(t0+1*hl(1));
-yv = y0 + h * f(t0,y0)
+k1 = h * f(t0,y0);
+k2 = h * f(t0 + h, y0 + k1);
+yv = y0 + (h/2) * (k1 + k2);
 yn = yv;
 for n = 2:length(hl)
     tn = t0+hl(n);
-    yv = yv + h * f(tn,yv);
+    k1 = h * f(tn,yv);
+    k2 = h * f(tn + h, yv + k1);
+    yv = yv + (h/2) * (k1 + k2);
     yn = [yn yv];
 end
 plot(hl, yn, 'b:', hl, fr(hl), 'g')
