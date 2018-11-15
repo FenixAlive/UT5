@@ -1,26 +1,39 @@
-clear
-%f = @(x,t)(exp(t));
-%f = @(x,y)(y-(x.^3-x.^2+x).*exp(-x.^2));
-f = @(x,y)((9*x.^2-2).*cos(3*x.^3-2*x));
-fexac = @(x)(sin(3.*x.^3-2*x));
-a = 0; %limite inferior
-b = 7; %limite superior
-h = 10^-2; %Separacion
-t0 = 0;
-y0 = 0;
-h1 = a:h:b; %espacio lineal
-yv = y0 + h * f(t0+a,y0);
-yn = yv;
-tf = t0;
-for n = 2:length(h1)
-    tn = t0+h1(n); %arreglar el tn, creo que no se usa t0, o creo que  es lo mismo que hl
-    tf = [tf tn];
-    yv = yv + h * f(tn,yv);
+function s = euler(f, fexac, a, b, h, t0, y0)
+% euler es una función que resuelve ecuaciones diferenciales ordinarias
+% parametros: f, fexac, a, b, h, t0, y0
+% f: Funcion a resolver
+% fexac: función real en caso de tenerla para las graficas y error
+% a: punto inferior
+% b: punto superior
+% h: separación de muestra a calcular
+% t0: punto inicial creo que es el mismo que a
+% y0: resultado de la función evaluada en t0
+tn = a:h:b; %espacio lineal
+yv = y0;
+yn = [];
+for n = 1:length(tn)
+    yv = yv + h * f(tn(n),yv);
     yn = [yn yv];
 end
-figure(1);
-plot(h1, yn, 'b', h1, fexac(h1), 'g');
-figure(2);
-plot(abs(yn-fexac(h1)))
-figure(3);
-plot(tf, fexac(tf), 'r:')
+error = abs(yn-fexac(tn));
+real = fexac(tn);
+
+subplot(141);
+plot(tn, yn, 'b');
+title("Euler");
+
+subplot(142);
+plot(tn, real, 'g:');
+title("Función Real");
+
+subplot(143);
+plot(tn, yn, 'b', tn, fexac(tn), 'g:');
+title("Comparación");
+
+subplot(144);
+plot(tn, error, 'r');
+title("Error");
+
+
+s = [tn; yn; real; error];
+end
