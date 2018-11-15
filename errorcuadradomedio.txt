@@ -1,0 +1,1 @@
+sqrt(sum((yest-yexac).^2)/length(y))
