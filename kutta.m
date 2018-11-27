@@ -1,5 +1,5 @@
 function sku = kutta(f, fexac, a, b, h, t0, y0)
-% eulerMod es una función que resuelve ecuaciones diferenciales ordinarias
+% Runge-Kutta es una función que resuelve ecuaciones diferenciales ordinarias
 % mediante el metodo de Euler Modificado
 % parametros: f, fexac, a, b, h, t0, y0
 % f: Funcion a resolver
@@ -28,11 +28,11 @@ plot(tn, yn, 'b');
 title("Kutta");
 
 subplot(142);
-plot(tn, real, 'g:');
+plot(tn, real, 'r:');
 title("Función Real");
 
 subplot(143);
-plot(tn, yn, 'b', tn, fexac(tn), 'g:');
+plot(tn, yn, 'b', tn, fexac(tn), 'r:');
 title("Comparación");
 
 subplot(144);
